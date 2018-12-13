@@ -1,1 +1,3 @@
-export const getUserInfo = "https://api.instagram.com/v1/users/self/media/recent?access_token=275500075.1677ed0.90a5811edebb4660a8b95c0091ee3cc9";
+import { accessToken } from './secrets';
+
+export const getUserInfo = `https://api.instagram.com/v1/users/self/media/recent?access_token=${accessToken}`;
