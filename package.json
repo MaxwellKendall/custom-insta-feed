@@ -1,0 +1,22 @@
+{
+  "name": "parcel-sandbox",
+  "version": "1.0.0",
+  "description": "Simple Parcel Sandbox",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "axios": "0.18.0",
+    "react": "16.6.3",
+    "react-dom": "16.6.3",
+    "source-map": "0.7.3"
+  },
+  "devDependencies": {
+    "@babel/core": "7.2.0",
+    "@types/react": "16.7.17",
+    "@types/react-dom": "16.0.11",
+    "parcel-bundler": "^1.6.1"
+  }
+}
