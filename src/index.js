@@ -28,7 +28,7 @@ class App extends Component {
     const pictures = results.data;
     const nextUrl = results.pagination.next_url;
 
-    console.log(pictures[0])
+    console.log(pictures[1])
     console.log(nextUrl);
   }
 
