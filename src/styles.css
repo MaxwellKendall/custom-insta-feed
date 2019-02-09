@@ -2,22 +2,108 @@ body {
   font-family: sans-serif;
 }
 
-.container {
+.carousel__container {
+  display: flex;
   width: 100%;
-  height: 100%;
+  justify-content: center;
+}
+
+.carousel__main {
+  width: 95%;
+  display: flex;
+  position: absolute;
+}
+
+.carousel__slider {
+  width: 100%;
+}
+
+.carousel__button {
+  background: white;
+  border: none;
+  outline: none;
+  position: relative;
+  font-size: 24px;
+}
+
+.carousel__next {
+  right: 0px;
+}
+
+.carousel__back {
+  left: 0px;
+}
+
+.carousel__button svg {
+  color: grey;
 }
 
 .sliderAnimation___300FY {
   transition: transform 1.5s;
 }
 
-.slide-parent {
-  width: 293px;
-  height: 293px;
-  overflow: hidden;
+.carousel__header {
+  background: url('./insta.jpg') no-repeat;
+  width: 100%;
+  background-position: center;
+  height: 211px;
+  position: relative;
+  top: 20px;
 }
 
-img {
-  min-height: 293px;
-  min-width: 293px;
+@media only screen and (max-width: 439px) {
+  .slide__container {
+    max-width: 126px;
+    max-height: 126px;
+    overflow: hidden;
+  }
+  
+  .slide__img {
+    max-width: 126px;
+    min-height: 126px;
+  }
+}
+
+@media only screen and (min-width: 440px) {
+  .slide__container {
+    max-width: 138px;
+    max-height: 138px;
+    overflow: hidden;
+  }
+
+  .slide__img {
+    max-width: 138px;
+    min-height: 138px;
+  }
+}
+
+@media only screen and (min-width: 550px) {
+  .slide__container {
+    max-width: 185px;
+    max-height: 185px;
+    overflow: hidden;
+  }
+
+  .slide__img {
+    max-width: 185px;
+    min-height: 185px;
+  }
+}
+
+
+@media only screen and (min-width: 751px) {
+  .slide__container {
+    max-width: 293px;
+    max-height: 293px;
+    width: 293px;
+    height: 293px;
+    overflow: hidden;
+  }
+
+  .slide__img {
+    max-width: 293px;
+    max-height: 293px;
+    min-height: 293px;
+    min-width: 293px;
+  }
 }

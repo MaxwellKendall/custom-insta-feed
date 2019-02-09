@@ -8,13 +8,18 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.14",
+    "@fortawesome/free-solid-svg-icons": "^5.7.1",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "add": "^2.0.6",
     "axios": "0.18.0",
     "pure-react-carousel": "^1.17.0",
     "react": "16.6.3",
     "react-alice-carousel": "^1.13.1",
     "react-dom": "16.6.3",
     "react-responsive-carousel": "^3.1.46",
-    "source-map": "0.7.3"
+    "source-map": "0.7.3",
+    "yarn": "^1.13.0"
   },
   "devDependencies": {
     "@babel/core": "7.2.0",

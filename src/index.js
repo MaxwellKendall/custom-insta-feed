@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronCircleLeft, faAngleLeft, faAngleRight, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { getUserInfo } from './api';
 
 import 'pure-react-carousel/dist/react-carousel.es.css';
@@ -14,14 +15,18 @@ class App extends Component {
     this.state = {
       pix: [],
       comments: [],
-      nextUrl: null
+      nextUrl: null,
+      width: null
     }
 
-    this.parseResults = this.parseResults.bind(this)
-    this.renderSlides = this.renderSlides.bind(this)
+    this.parseResults = this.parseResults.bind(this);
+    this.renderSlides = this.renderSlides.bind(this);
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
   componentDidMount(){
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
     // axios.get(getUserInfo)
     axios.get('mock.json')
       .then(resp => {
@@ -32,15 +37,16 @@ class App extends Component {
 
   parseResults(results) {
     const { data, pagination } = results;
-    // const nextUrl = results.pagination.next_url;
-
-    // console.log('data', pictures[1])
-    // console.log(nextUrl);
-    data.map((pic) => {
-      console.log('width', pic.images.low_resolution.width)
-      console.log('height', pic.images.low_resolution.height)
-    });
+    data.map(pic => console.log(pic.images))
     this.setState({ pix: data, nextUrl: pagination.next_url })
+  }
+
+  getPictureSrcSet(pic) {
+    const { standard_resolution, low_resolution, thumbnail } = pic;
+    const standard = `${standard_resolution.url} ${standard_resolution.width}w`;
+    const low = `${low_resolution.url} ${low_resolution.width}w`;
+    const thumbnail_res = `${thumbnail.url} ${thumbnail.width}w`;
+    return `${thumbnail_res}, ${low}`;
   }
 
   renderSlides() {
@@ -50,10 +56,17 @@ class App extends Component {
           <Slide
             index={index}
             innerTag="div"
-            innerClassName="slide-parent"
+            innerClassName="slide__container"
             tag="li">
-            <div className="slide">
-              <img src={pic.images.low_resolution.url} alt=""/>
+            <div className="slide__main">
+              <img
+                className="slide__img"
+                sizes="(max-width: 320px) 126px,
+                       (max-width: 440px) 138px,
+                       (max-width: 550px) 185px,
+                       275px"
+                srcset={this.getPictureSrcSet(pic.images)}
+                alt=""/>
             </div>
           </Slide>
         );
@@ -61,26 +74,36 @@ class App extends Component {
     }
   }
 
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth });
+  }
+
   render() {
+    const numberOfSlides = this.state.width > 740 ? 4 : 3;
     return (
-      <div className="container">
-        <CarouselProvider
-          naturalSlideWidth={293}
-          naturalSlideHeight={293}
-          visibleSlides={4}
-          // isPlaying
-          totalSlides={this.state.pix.length}>
-          <ButtonNext>
-            <p>Next</p>
-          </ButtonNext>
-          <Slider>
-            {this.renderSlides()}
-          </Slider>
-          <ButtonBack>
-            <p>Back</p>
-          </ButtonBack>
-        </CarouselProvider>
+      <React.Fragment>
+        {/* <div className="carousel__header"></div> */}
+        <div className="carousel__container" ref={(ref) => this.window = ref}>
+          <CarouselProvider
+            className="carousel__main"
+            naturalSlideWidth={293}
+            naturalSlideHeight={293}
+            visibleSlides={numberOfSlides}
+            isPlaying
+            touchEnabled
+            totalSlides={this.state.pix.length}>
+            <ButtonBack className="carousel__back carousel__button">
+              <FontAwesomeIcon icon={faAngleLeft} />
+            </ButtonBack>
+            <Slider className="carousel__slider">
+              {this.renderSlides()}
+            </Slider>
+            <ButtonNext className="carousel__next carousel__button">
+              <FontAwesomeIcon icon={faAngleRight} />
+            </ButtonNext>
+          </CarouselProvider>
       </div>
+      </React.Fragment>
     );
   }
 }
