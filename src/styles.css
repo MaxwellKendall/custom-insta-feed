@@ -5,11 +5,13 @@ body {
 .carousel__container {
   display: flex;
   width: 100%;
+  height: 150px;
+  overflow: hidden;
   justify-content: center;
 }
 
 .carousel__main {
-  width: 95%;
+  width: 100%;
   display: flex;
   position: absolute;
 }
@@ -52,6 +54,10 @@ body {
 }
 
 @media only screen and (max-width: 439px) {
+  .carousel__slide {
+    max-width: 126px;
+    max-height: 126px;
+  }
   .slide__container {
     max-width: 126px;
     max-height: 126px;
@@ -64,7 +70,15 @@ body {
   }
 }
 
+.carousel__slide {
+  margin-right: 2px;
+}
+
 @media only screen and (min-width: 440px) {
+  .carousel__slide {
+    max-width: 138px;
+    max-height: 138px;
+  }
   .slide__container {
     max-width: 138px;
     max-height: 138px;
@@ -78,32 +92,18 @@ body {
 }
 
 @media only screen and (min-width: 550px) {
+  .carousel__slide {
+    max-width: 150px;
+    max-height: 150px;
+  }
   .slide__container {
-    max-width: 185px;
-    max-height: 185px;
+    max-width: 150px;
+    max-height: 150px;
     overflow: hidden;
   }
 
   .slide__img {
-    max-width: 185px;
-    min-height: 185px;
-  }
-}
-
-
-@media only screen and (min-width: 751px) {
-  .slide__container {
-    max-width: 293px;
-    max-height: 293px;
-    width: 293px;
-    height: 293px;
-    overflow: hidden;
-  }
-
-  .slide__img {
-    max-width: 293px;
-    max-height: 293px;
-    min-height: 293px;
-    min-width: 293px;
+    max-width: 150px;
+    min-height: 150px;
   }
 }

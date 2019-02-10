@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronCircleLeft, faAngleLeft, faAngleRight, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons'
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { getUserInfo } from './api';
 
 import 'pure-react-carousel/dist/react-carousel.es.css';
@@ -27,8 +27,7 @@ class App extends Component {
   componentDidMount(){
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
-    // axios.get(getUserInfo)
-    axios.get('mock.json')
+    axios.get(getUserInfo)
       .then(resp => {
         this.parseResults(resp.data) // 20 pictures
       })
@@ -43,14 +42,14 @@ class App extends Component {
 
   getPictureSrcSet(pic) {
     const { standard_resolution, low_resolution, thumbnail } = pic;
-    const standard = `${standard_resolution.url} ${standard_resolution.width}w`;
-    const low = `${low_resolution.url} ${low_resolution.width}w`;
+    // const standard = `${standard_resolution.url} ${standard_resolution.width}w`;
+    // const low = `${low_resolution.url} ${low_resolution.width}w`;
     const thumbnail_res = `${thumbnail.url} ${thumbnail.width}w`;
-    return `${thumbnail_res}, ${low}`;
+    return `${thumbnail_res}`;
   }
 
   renderSlides() {
-    if (this.state.pix.length > 0){
+    if (this.state.pix.length > 0) {
       return this.state.pix.map((pic, index) => {
         return (
           <Slide
@@ -63,8 +62,7 @@ class App extends Component {
                 className="slide__img"
                 sizes="(max-width: 320px) 126px,
                        (max-width: 440px) 138px,
-                       (max-width: 550px) 185px,
-                       275px"
+                       150px"
                 srcset={this.getPictureSrcSet(pic.images)}
                 alt=""/>
             </div>
@@ -79,15 +77,14 @@ class App extends Component {
   }
 
   render() {
-    const numberOfSlides = this.state.width > 740 ? 4 : 3;
+    const numberOfSlides = 7;
     return (
       <React.Fragment>
-        {/* <div className="carousel__header"></div> */}
         <div className="carousel__container" ref={(ref) => this.window = ref}>
           <CarouselProvider
             className="carousel__main"
-            naturalSlideWidth={293}
-            naturalSlideHeight={293}
+            naturalSlideWidth={150}
+            naturalSlideHeight={150}
             visibleSlides={numberOfSlides}
             isPlaying
             touchEnabled
